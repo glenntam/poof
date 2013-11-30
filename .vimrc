@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 colorscheme pablo 
+=======
+colorscheme desert
+>>>>>>> 6a62bb29d6bae5b5cfca9b4636124fe2436c6034
 set guifont=Menlo:h15               " same as my Sublime Text 2
 inoremap kj <Esc>
 " remap escape key to 'kj' key sequence, don't inline comment
