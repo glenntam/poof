@@ -1,0 +1,15 @@
+# The following are cmd snippets for using git in CLI
+
+in .vim/ directory:
+# EXAMPLE, to add a plugin: 
+git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
+
+# after adding submodule, mark them for current repo. Required.
+git submodule init
+git submodule update
+git submodule foreach git submodule init
+git submodule foreach git submodule update
+
+# commit files in staging and push changes
+git commit -m "some message"  # TODO vim hangs w/o -m, google why
+git push -u origin master

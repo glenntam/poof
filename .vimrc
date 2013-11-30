@@ -1,5 +1,5 @@
 colorscheme pablo 
-set guifont=Menlo:h15               " same as my Sublime Text 2
+set guifont=Menlo:h13               " same as my Sublime Text 2
 inoremap kj <Esc>
 " remap escape key to 'kj' key sequence, don't inline comment
 set timeoutlen=500                  " set wait time for second keystroke command. default=1000
@@ -8,6 +8,8 @@ set wrapscan                        " Set the search scan to wrap around the fil
 set vb                              " set visual bell, turn off beeping
 set history=500                     " how many previous commands vim remembers
 syntax on                           " syntax highlighing
+set foldmethod=indent               " type 'za' to open/close folds
+set foldlevel=99                    " type 'za' to open/close folds
 
 " sets status line. TODO: customize later g
 set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Buf:\#%n\
@@ -20,22 +22,24 @@ set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Buf:\#%n\
 filetype off " Pathogen needs to run before plugin indent on
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
-filetype plugin indent on
-
-"" smart indent, converts 1 tab to 4 spaces
-"set smartindent
-"set tabstop=4
-"set shiftwidth=4
-"set expandtab
 
 " what does the following 2 lines mean? TODO: find out what below does
-"filetype on                         " try to detect filetypes
-"filetype plugin indent on           " enable loading indent file for filetype
+filetype on                         " try to detect filetypes, must come after Pathogen
+filetype plugin indent on           " enable loading indent file for filetype
 
-"
-"" for cold folding, type 'za' to open and close
-"set foldmethod=indent
-"set foldlevel=99
+" NERDTree
+" 1. autostart even without specifying file.  2. close vim if NT is only
+" window left open
+autocmd vimenter * if !argc() | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"" smart indent, converts 1 tab to 4 spaces
+" TODO seems to work, but not sure why. Remember to google
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
 "
 "" pressing tab will cycle through file list for filename completion. like bash
 "set wildmode=longest,list,full
