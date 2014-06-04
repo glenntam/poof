@@ -30,6 +30,7 @@ apt-get install git
 #2. from home directory:
 git clone git://github.com/glenntam/g-vimrc.git
 mv ~/g-vimrc/ ~/.vim/
+mkdir ~/.vim/autosaves
 ln -s ~/.vim/.vimrc ~/.vimrc
 ln -s ~/.vim/.bashrc ~/.bashrc
 
