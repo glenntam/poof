@@ -3,10 +3,11 @@
 export LANG='en_US.UTF-8'
 export LC_ALL="en_US.UTF-8"
 export COLUMNS="140"
+
 # Custom prompt and colours
-export PS1="\\e[34m\\u\[\e[31m\]\$\[\e[0m\][\[\e[30;42m\]\w\[\e[0m\]]"
+#export PS1="\\e[34m\\u\[\e[31m\]\$\[\e[0m\][\[\e[30;42m\]\w\[\e[0m\]]"
 # alternate color scheme
-#export PS1="\[$(tput bold)\]\[$(tput setaf 1)\]\\$[\[$(tput setaf 2)\]\u\[$(tput setaf 1)\]@\[$(tput setaf 0)\]\h \[$(tput setaf 4)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\[$(tput sgr0)\]"
+export PS1="\[$(tput bold)\]\[$(tput setaf 1)\]\\$[\[$(tput setaf 2)\]\u\[$(tput setaf 1)\]@\[$(tput setaf 0)\]\h \[$(tput setaf 4)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\[$(tput sgr0)\]"
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export CLICOLOR_FORCE=1
