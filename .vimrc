@@ -4,8 +4,8 @@ set t_Co=256                        " 256 color mode, for iTerm2
 colorscheme Tomorrow-Night-Bright
 set guifont=Menlo:h12               " same as my Sublime Text 2
 set backup                          " turn on backups to below directories
-set backupdir=~/.v-autosaves
-set directory=~/.v-autosaves
+set backupdir=~/.vim/autosaves
+set directory=~/.vim/autosaves
 set timeoutlen=700                  " set wait time for second keystroke command. default=1000
 set laststatus=2                    " tell Vim to always put a status line in, even if there is only one window
 set wrapscan                        " Set the search scan to wrap around the file
