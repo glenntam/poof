@@ -7,3 +7,6 @@
 [submodule "bundle/Conque-Shell"]
 	path = bundle/Conque-Shell
 	url = https://github.com/vim-scripts/Conque-Shell
+[submodule "bundle/vterm"]
+	path = bundle/vterm
+	url = https://github.com/sollidsnake/vterm
