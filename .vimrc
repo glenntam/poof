@@ -6,10 +6,11 @@ set guifont=Menlo:h12               " same as my Sublime Text 2
 set backup                          " turn on backups to below directories
 set backupdir=~/.vim/autosaves
 set directory=~/.vim/autosaves
+set title                           " adjusts xterm window title
 set timeoutlen=700                  " set wait time for second keystroke command. default=1000
 set laststatus=2                    " tell Vim to always put a status line in, even if there is only one window
 set wrapscan                        " Set the search scan to wrap around the file
-set vb                              " set visual bell, turn off beeping
+set visualbell                              " set visual bell, turn off beeping
 set history=500                     " how many previous commands vim remembers
 syntax on                           " syntax highlighing
 set showmatch                       " set show matching parenthesis
@@ -31,16 +32,24 @@ set smartcase                       " ignore case if search pattern is all lower
 set hlsearch                        " highlight search terms
 set incsearch                       " show search matches as you type
 set mouse=a                         " enables mouse
+set showcmd                         " shows <leader> visually (and other things?)
+set ruler
+
+set backspace=indent,eol,start      " Intuitive backspacing in insert mode
 
 set pastetoggle=<F2>                " toggle pastemode when vim smartindents too much from clipboard
 set list
 autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " KEYMAPS
+" set leader key first
+let mapleader="\\"
+" set leader-r to reload (:source) .vimrc
+nnoremap <leader>r :so $MYVIMRC<CR>
 " for esc
 inoremap kj <Esc>
-" alt-o, other window
-nnoremap ø <C-w> w
+" alt-o, other kindow
+nnoremap ø :wincmd w<CR>
 " alt-b, show buffer list
 nnoremap ∫ :buffers<CR>:buffer<Space>
 " alt-l, show/hide NERDtree
