@@ -16,7 +16,7 @@ git submodule init
 git submodule update
 cd ..
 ```
-Finally, link vim to g-vimrc. Be very careful. Make backups of if .vim and .vimrc if they already exist.
+Finally, link vim to g-vimrc. Be very careful. Make backups of .vim and .vimrc if they already exist.
 ```bash
 ln -fs g-vimrc ~/.vim
 ln -fs g-vimrc/.vimrc ~/.vimrc
@@ -40,4 +40,8 @@ After adding the plugin as a submodule, you need to enable it on your g-vimrc in
 git submodule init
 git submodule update
 ```
-if you want to keep those plugins for future g-vimrc installations remember to git commit and git push back to your own fork of g-vimrc
+Confirm the installation with: 
+```bash
+git submodule status
+```
+If you want to keep those plugins for future g-vimrc installations remember to git commit and git push back to your own fork of g-vimrc.
