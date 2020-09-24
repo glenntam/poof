@@ -1,7 +1,7 @@
 " GENERAL customizations
 set nocompatible                    " sets to vim, not vi
 set t_Co=256                        " 256 color mode, for iTerm2
-colorscheme Tomorrow-Night-Bright
+colorscheme monokai
 set guifont=Menlo:h12               " same as my Sublime Text 2
 set backup                          " turn on backups to below directories
 set backupdir=~/.vim/autosaves
@@ -10,11 +10,12 @@ set title                           " adjusts xterm window title
 set timeoutlen=700                  " set wait time for second keystroke command. default=1000
 set laststatus=2                    " tell Vim to always put a status line in, even if there is only one window
 set wrapscan                        " Set the search scan to wrap around the file
-set visualbell                              " set visual bell, turn off beeping
+set visualbell                      " set visual bell, turn off beeping
 set history=500                     " how many previous commands vim remembers
-syntax on                           " syntax highlighing
+syntax on                           " syntax highlighting
+syntax enable                       " syntax highlighting
 set showmatch                       " set show matching parenthesis
-set foldmethod=indent               " type 'za' to open/close folds
+set foldmethod=syntax               " type 'za' to open/close folds
 set foldlevel=99                    " type 'za' to open/close folds
 set scrolloff=999                   " keep cursor in the middle
 set number                          " show line numbers
@@ -43,9 +44,9 @@ autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " KEYMAPS
 " set leader key first
-let mapleader="\\"
-" set leader-r to reload (:source) .vimrc
-nnoremap <leader>r :so $MYVIMRC<CR>
+let mapleader="\<Space>"
+" set leader-r to reload (:source) current file
+nnoremap <leader>r :so %<CR>
 " for esc
 inoremap kj <Esc>
 " alt-o, other kindow
