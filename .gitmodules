@@ -1,6 +1,0 @@
-[submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = https://github.com/vim-scripts/The-NERD-tree.git
-[submodule "bundle/pep8"]
-	path = bundle/pep8
-	url = https://github.com/vim-scripts/pep8.git
