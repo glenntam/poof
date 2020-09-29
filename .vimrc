@@ -35,12 +35,16 @@ set incsearch                       " show search matches as you type
 set mouse=a                         " enables mouse
 set showcmd                         " shows <leader> visually (and other things?)
 set ruler
-
+filetype on                         " try to detect filetypes, must come after Pathogen
+filetype plugin indent on           " enable loading indent file for filetype
 set backspace=indent,eol,start      " Intuitive backspacing in insert mode
-
 set pastetoggle=<F2>                " toggle pastemode when vim smartindents too much from clipboard
 set list
 autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+" sets status line. TODO: customize later g
+set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Buf:\#%n\
+
 
 " KEYMAPS
 " set leader key first
@@ -56,18 +60,9 @@ nnoremap ∫ :buffers<CR>:buffer<Space>
 " alt-l, show/hide NERDtree
 nmap <silent> ¬ :execute 'NERDTreeToggle ' . getcwd()<CR> 
 
-" sets status line. TODO: customize later g
-set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Buf:\#%n\
-
-" Pathogen
-filetype off                        " Pathogen needs to run before plugin indent on
-call pathogen#incubate()
-call pathogen#helptags()            " generate helptags for everything in 'runtimepath'
-filetype on                         " try to detect filetypes, must come after Pathogen
-filetype plugin indent on           " enable loading indent file for filetype
 
 " NERDTree
 " 1. autostart even without specifying file.  2. close vim if NT is only window left open
 autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=-1
