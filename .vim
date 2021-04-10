@@ -1,1 +1,1 @@
-#HOME/.vim
+$HOME/.vim
