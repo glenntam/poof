@@ -1,1 +1,1 @@
-/Users/g5/.vim
+#HOME/.vim
