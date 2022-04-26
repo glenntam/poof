@@ -1,134 +1,93 @@
-"
-" GENERAL customizations
-set nocompatible                    " sets to vim, not vi
-set t_Co=256                        " 256 color mode, for iTerm2
-colorscheme monokai
-set guifont=Menlo:h12               " same as my Sublime Text 2
-set backup                          " turn on backups to below directories
-set backupdir=~/.vim/autosaves
-set directory=~/.vim/autosaves
-set title                           " adjusts xterm window title
-set timeoutlen=700                  " set wait time for second keystroke command. default=1000
-set laststatus=2                    " tell Vim to always put a status line in, even if there is only one window
-set wrapscan                        " Set the search scan to wrap around the file
-set visualbell                      " set visual bell, turn off beeping
-set history=500                     " how many previous commands vim remembers
-set showmatch                       " set show matching parenthesis
-set foldmethod=syntax               " type 'za' to open/close folds
-set foldlevel=99                    " type 'za' to open/close folds
-set scrolloff=999                   " keep cursor in the middle
-set number                          " show line numbers
-set ruler                           " show column number on status bar
-set textwidth=0                     " do not automatically add new lines when typing.
-set hidden                          " buffers hidden instead of closed
-set ignorecase                      " ignore case when searching
-set smartcase                       " ignore case if search pattern is all lowercase, case-sensitive otherwise
-set hlsearch                        " highlight search terms
-set incsearch                       " show search matches as you type
-set mouse=a                         " enables mouse
-set showcmd                         " shows <leader> visually (and other things?)
-"
-filetype on                         " try to detect filetypes, must come after Pathogen
-filetype plugin indent on           " enable loading indent file for filetype
-syntax off                           " use vim default syntax highlighting
-syntax enable                       " now set personal syntax highlighting
-set backspace=indent,eol,start      " Intuitive backspacing in insert mode
-set pastetoggle=<F2>                " toggle pastemode when vim smartindents too much from clipboard
-set list
+"""""""""""""""
+" my defaults "
+"""""""""""""""
+set nocompatible                                 " sets to vim, not vi 
+set number                                       " show line numbers in gutter
+set ruler                                        " show column number in status bar
+set fileformat=unix                              " how carriage returns are interpreted (options are: dos, mac, unix)
+set ignorecase                                   " set case insensitive search
+set foldmethod=indent                            " indent or syntax
+set foldlevelstart=20                            " expand folds on open
 
-set encoding=utf-8
-"
-"
-" Python specific
-au BufNewFile,BufRead *.py
-    \ set fileformat=unix"                " for github mostly
-    \ set expandtab                       " expand tabs to spaces
-    \ set tabstop=4                       " a tab is four spaces
-    \ set softtabstop=4                   " defaults to same as tabstop anyways onff
-    \ set shiftwidth=4                    " number of spaces to use for autoindenting
-    \ set shiftround                      " use multiple of shiftwidth when indenting with '<' and '>'
-    \ set smarttab                        " insert tabs on the start of a line according to shiftwidth, not tabstop
-    \ set autoindent                      " always set autoindenting on
-    \ set copyindent                      " copy the previous indentation on autoindenting
-let g:python_highlight_all = 0      " enable all Python syntax highlighting features
-autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set nobackup
+set nowritebackup
+set noswapfile
+set noundofile
 
 
-"The following line sets the smartindent mode for *.py files. It means that after typing lines which start with any of the keywords in the list (ie. def, class, if, etc) the next line will automatically indent itself to the next level of indentation:
-set smartindent                     "  
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-" Many people like to remove any extra whitespace from the ends of lines. Here is one way to do it when saving your file.
-autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
-
-" JS, HTML, CSS
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-
-" Status line
-" https://shapeshed.com/vim-statuslines/#building-a-statusline
-"function! GitBranch()
-"  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-"endfunction
-"
-"function! StatuslineGit()
-"  let l:branchname = GitBranch()
-"  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-"endfunction
-
-set statusline=
-set statusline+=%#PmenuSel#
-"set statusline+=%{StatuslineGit()}
-set statusline+=%#LineNr#
-set statusline+=\ %f
-set statusline+=%m\
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\ %y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %p%%
-set statusline+=\ %l:%c
-set statusline+=\ 
-
-
-" KEYMAPS
-" set leader key first
-let mapleader="\<Space>"
-
-" set leader-r to reload (:source) current file
-nnoremap <leader>r :so %<CR>
-
-" for esc
+""""""""""""""""
+" key bindings "
+""""""""""""""""
 inoremap kj <Esc>
 
-" <CR> in normal mode adds <CR> to text and stays in command mode
-"nmap <CR> O<Esc>
+" just use z to toggle all folds
+nnoremap z :call ToggleFold()<CR>
+function! ToggleFold()
+    if &foldlevel == 0
+        set foldlevel=20
+    else
+        set foldlevel=0
+    endif
+endfunction
 
-" alt-o, other window
-nnoremap ø :wincmd w<CR>
-
-" alt-b, show buffer list
-nnoremap ∫ :buffers<CR>:buffer<Space>
-
-" alt-l, show/hide NERDtree
-nmap <silent> ¬ :execute 'NERDTreeToggle ' . getcwd()<CR> 
+" if desired, turn off cursor keys:
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
 
 
-"" NERDTree
-"" 1. autostart even without specifying file
-autocmd vimenter * if !argc() | NERDTree | endif
-"" 2. close vim if NT is only window left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-"" 3. don't show binaries and other misc stuff 
-let NERDTreeShowHidden=-1
-let NERDTreeIgnore=['\.pyc$', '\~$', '\.rnd$','\.png$','\.jpg$','\.gif$','\.mp3$','\.flac$', '\.ogg$', '\.mp4$','\.avi$','.webm$','.mkv$','\.pdf$', '\.zip$', '\.tar.gz$', '\.rar$']
+""""""""""""""""""
+" colors/display "
+""""""""""""""""""
+syntax on                                        " syntax highlighting. filetype=on when syntax is on
+"let base16colorspace=25
+colorscheme badwolf
+hi Normal guibg=NONE ctermbg=NONE                " set background to transparent
+hi NonText guibg=NONE ctermbg=NONE               " set empty background areas to transparent
 
-"
-if has('nvim')
-	call plug#begin('~/.local/share/nvim/plugged')
-	Plug 'davidhalter/jedi-vim'
-	Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-	call plug#end()
-endif
+" uncomment below if characters are messed up on iTerm over ssh
+"if &term =~ '256color'
+"  disable Background Color Erase (BCE)
+"  set t_ut=
+"endif
+
+
+"""""""""""""""
+"  scrolling  "
+"""""""""""""""
+set scrolloff=999                                " keep cursor in the middle
+set scroll=7                                     " ctrl-d, ctrl-u moves by 7 lines
+"set ttyfast                                     " sends more characters to redraw instead of one line at a time
+set nottyfast                                    "     --pick one or the other--
+set lazyredraw                                   " do not update the screen until macros are finished executing
+"set nolazyredraw                                "     --pick one or the other--
+set mouse=a                                      " remember to also enable mouse reporting in terminal emulator (e.g. iTerm)
+noremap <ScrollWheelUp>     10<C-Y>              " set mouse scroll to 10 lines at a time
+noremap <ScrollWheelDown>   10<C-E>              " set mouse scroll to 10 lines at a time
+
+
+""""""""""
+" Python "
+""""""""""
+augroup python
+    autocmd!
+    " autocmd! needed to release previous autocmds or else vim will eventually get clogged up
+    autocmd Filetype python setlocal tabstop=8 softtabstop=4 expandtab autoindent shiftwidth=4
+    " setlocal means:     these settings only apply to the current buffer, not any new buffers
+    " tabstop=4 means:    the length of one tab is 4 spaces
+    " expandtab means:    one tab press is actually made of spaces
+    " autoindent means:   if you start a new line, use the current indentation
+    " shiftwidth=4 means: use 4 spaces for autoindent
+augroup END
+
+
+""""""
+" GO "
+""""""
+augroup go
+    autocmd!
+    " autocmd! needed to release previous autocmds or else vim will eventually get clogged up
+    autocmd Filetype go setlocal autoindent
+augroup END
+
