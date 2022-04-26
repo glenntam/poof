@@ -1,0 +1,52 @@
+#!/bin/bash
+
+CYAN="\e[36m"
+RED="\e[31m"
+NC="\e[0m"
+
+# Get the full path for g-vimrc regardless of how this script is called.
+SOURCE=${BASH_SOURCE[0]}
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  GVIMDIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$GVIMDIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+GVIMDIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+# Back up the current vim settings if this is the first time running g-vimrc
+# Otherwise, running this script again will revert the old settings and unlink g-vimrc
+if [[ ! -d $GVIMDIR/previous-vimrc-backup ]]; then
+  echo -e "  ${CYAN}Installing g-vimrc from ${GVIMDIR}${NC}"
+  mkdir $GVIMDIR/previous-vimrc-backup
+  if [[ -f $HOME/.vim ]]; then
+    mv $HOME/.vim $GVIMDIR/previous-vimrc-backup/.vim
+    echo -e "  ${RED}~/.vim backed up to ${GVIMDIR}${NC}"
+  fi
+  if [[ -f $HOME/.vimrc ]]; then
+    mv $HOME/.vimrc $GVIMDIR/previous-vimrc-backup/.vimrc
+    echo -e "  ${RED}~/.vimrc backed up to ${GVIMDIR}${NC}"
+  fi
+  ln -s $GVIMDIR/.vimrc $HOME/.vimrc
+  ln -s $GVIMDIR $HOME/.vim
+else  # revert back to orginal vimrc (if any) and remove g-vimrc
+  echo -e "  ${CYAN}Uninstalling g-vimrc${NC}"
+  if [[ -d $GVIMDIR/previous-vimrc-backup/.vim ]]; then
+    rm -r $HOME/.vim
+    mv $GVIMDIR/previous-vimrc-backup/.vim $HOME/.vim
+    echo -e "  ${RED}~/.vim reverted back to original${NC}"
+  else
+    rm -r $HOME/.vim
+  fi
+  if [[ -f $GVIMDIR/previous-vimrc-backup/.vimrc ]]; then
+    rm $HOME/.vimrc
+    mv $GVIMDIR/previous-vimrc-backup/.vimrc $HOME/.vimrc
+    echo -e "  ${RED}~/.vimrc reverted back to original${NC}"
+  else
+    rm $HOME/.vimrc
+  fi
+  rm -r $GVIMDIR/previous-vimrc-backup
+fi
+exec bash # restart shell
+echo -e "  ${CYAN}Done!${NC}"
+  
+
