@@ -45,8 +45,8 @@ else  # revert back to orginal vimrc (if any) and remove g-vimrc
     rm $HOME/.vimrc
   fi
   rm -r $GVIMDIR/previous-vimrc-backup
+  echo -e "  ${RED}* To completely remove g-vimrc, delete ${GVIMDIR} directory. ${NC}"
 fi
-exec bash # restart shell
 echo -e "  ${CYAN}Done!${NC}"
   
 
