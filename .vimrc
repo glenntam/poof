@@ -4,6 +4,7 @@
 set nocompatible                                 " sets to vim, not vi 
 set number                                       " show line numbers in gutter
 set ruler                                        " show column number in status bar
+set hidden                                       " use hidden buffers, allows for fast buffer switching
 set fileformat=unix                              " how carriage returns are interpreted (options are: dos, mac, unix)
 set ignorecase                                   " set case insensitive search
 set foldmethod=indent                            " indent or syntax
