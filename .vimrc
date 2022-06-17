@@ -36,7 +36,10 @@ endfunction
 "noremap <Left> <Nop>
 "noremap <Right> <Nop>
 
-
+" bindings for fast buffer switching
+nnoremap <C-h> :bp<cr>
+nnoremap <C-l> :bn<cr>
+ 
 """"""""""""""""""
 " colors/display "
 """"""""""""""""""
@@ -91,3 +94,39 @@ augroup go
     autocmd Filetype go setlocal autoindent
 augroup END
 
+
+"""""""""
+" netrw "
+"""""""""
+let g:netrw_banner = 0                           " 0 disable the netrw banner
+let g:netrw_liststyle = 3                        " 3 is nothing, 2 shows bars
+let g:netrw_browse_split = 4                     " 4 open new files in previous window
+let g:netrw_altv = 1                             " 1 open it in vertical split (use w/ browse_split)
+let g:netrw_preview = 1                          " 1 open the preview on the vertically
+let g:netrw_winsize = 20                         " % of netrw pane compared to whole width
+
+"augroup DisplayNetrwOnStartup
+"  autocmd!
+"  autocmd VimEnter * :Lexplore
+"" Open file, but keep focus in Explorer
+"  autocmd filetype netrw nmap <c-a> <cr>:wincmd W<cr>
+"augroup END
+
+" hide netrw on startup, map toggle key to Ctrl-E
+let g:NetrwIsOpen=0
+function! ToggleNetrw()
+    if g:NetrwIsOpen==1
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore
+    endif
+endfunction
+noremap <silent> <C-E> :call ToggleNetrw()<CR>
