@@ -37,9 +37,16 @@ endfunction
 "noremap <Left> <Nop>
 "noremap <Right> <Nop>
 
-" bindings for fast buffer switching
+" faster buffer manipulation
 nnoremap <C-h> :bp<cr>
-nnoremap <C-l> :bn<cr>
+nnoremap <C-l> :bn<cr> 
+" custom 'bc' command: close current buffer
+command Bc bp | sp | bn | bd | wincmd l
+cnoreabbrev bc Bc
+
+" set 'normal' backspace behaviour
+set backspace=indent,eol,start
+
  
 """"""""""""""""""
 " colors/display "
