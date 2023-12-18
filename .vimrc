@@ -21,39 +21,15 @@ set noundofile
 """"""""""""""""
 inoremap kj <Esc>
 
-" just use z to toggle all folds
-nnoremap z :call ToggleFold()<CR>
-function! ToggleFold()
-    if &foldlevel == 0
-        set foldlevel=20
-    else
-        set foldlevel=0
-    endif
-endfunction
-
-" if desired, turn off cursor keys:
-"noremap <Up> <Nop>
-"noremap <Down> <Nop>
-"noremap <Left> <Nop>
-"noremap <Right> <Nop>
-
-" faster buffer manipulation
-nnoremap <C-h> :bp<cr>
-nnoremap <C-l> :bn<cr> 
-" custom 'bc' command: close current buffer
-command Bc bp | sp | bn | bd | wincmd l
-cnoreabbrev bc Bc
-
 " set 'normal' backspace behaviour
 set backspace=indent,eol,start
 
  
-""""""""""""""""""
-" colors/display "
-""""""""""""""""""
-syntax on                                        " syntax highlighting. filetype=on when syntax is on
-"let base16colorspace=25
+""""""""""
+" colors "
+""""""""""
 colorscheme badwolf
+syntax on                                        " syntax highlighting. filetype=on when syntax is on
 hi Normal guibg=NONE ctermbg=NONE                " set background to transparent
 hi NonText guibg=NONE ctermbg=NONE               " set empty background areas to transparent
 
@@ -78,31 +54,6 @@ noremap <ScrollWheelUp>     10<C-Y>              " set mouse scroll to 10 lines 
 noremap <ScrollWheelDown>   10<C-E>              " set mouse scroll to 10 lines at a time
 
 
-""""""""""
-" Python "
-""""""""""
-augroup python
-    autocmd!
-    " autocmd! needed to release previous autocmds or else vim will eventually get clogged up
-    autocmd Filetype python setlocal tabstop=8 softtabstop=4 expandtab autoindent shiftwidth=4
-    " setlocal means:     these settings only apply to the current buffer, not any new buffers
-    " tabstop=4 means:    the length of one tab is 4 spaces
-    " expandtab means:    one tab press is actually made of spaces
-    " autoindent means:   if you start a new line, use the current indentation
-    " shiftwidth=4 means: use 4 spaces for autoindent
-augroup END
-
-
-""""""
-" GO "
-""""""
-augroup go
-    autocmd!
-    " autocmd! needed to release previous autocmds or else vim will eventually get clogged up
-    autocmd Filetype go setlocal autoindent
-augroup END
-
-
 """""""""
 " netrw "
 """""""""
@@ -112,13 +63,6 @@ let g:netrw_browse_split = 4                     " 4 open new files in previous 
 let g:netrw_altv = 1                             " 1 open it in vertical split (use w/ browse_split)
 let g:netrw_preview = 1                          " 1 open the preview on the vertically
 let g:netrw_winsize = 20                         " % of netrw pane compared to whole width
-
-"augroup DisplayNetrwOnStartup
-"  autocmd!
-"  autocmd VimEnter * :Lexplore
-"" Open file, but keep focus in Explorer
-"  autocmd filetype netrw nmap <c-a> <cr>:wincmd W<cr>
-"augroup END
 
 " hide netrw on startup, map toggle key to Ctrl-E
 let g:NetrwIsOpen=0
