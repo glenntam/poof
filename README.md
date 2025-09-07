@@ -9,20 +9,21 @@ To customize poof, just copy your .vimrc into the poof directory.
 Installation:
 ```sh
 git clone https://github.com/glenntam/poof
+poof/poof
 ```
-(Optional)
-A basic .vimrc is already included. Otherwise replace it with your own.
+
+Optional:
+```sh
+A basic .vimrc is already included in the poof directory. Otherwise replace it with your own.
+```
 
 Usage:
 ```sh
-cd poof
-poof
-
 vim
 ```
 
 Uninstall:
-To uninstall poof and revert all changes, just run the 'poof' again.
+To uninstall poof and revert all changes, just run 'poof' again.
 ```
-poof
+poof/poof
 ```
