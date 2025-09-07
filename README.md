@@ -1,20 +1,28 @@
-# g-vimrc
+# poof!
 
-g-vimrc lets you fork your own vim settings onto any remote machine for instant use. Useful for when you're installing new servers, need to make a presentation on a guest computer, remotely diagnose someone else's computer, etc. 
+poof lets you use your own vim settings on any remote machine for instant use. Useful for when you're installing new servers, need to make a presentation on a guest computer, remotely diagnose someone else's computer, etc.
 
-To customize g-vimrc, just fork and edit the included .vimrc
+To customize poof, just copy your .vimrc into the poof directory.
 
 ## Syncing on remote machine
 
 Installation:
-```bash
-git clone https://github.com/glenntam/g-vimrc
-g-vimrc/start
-
+```sh
+git clone https://github.com/glenntam/poof
 ```
-To uninstall g-vimrc and revert all changes, just run the 'start' script again.
+(Optional)
+A basic .vimrc is already included. Otherwise replace it with your own.
 
 Usage:
-```bash
+```sh
+cd poof
+poof
+
 vim
+```
+
+Uninstall:
+To uninstall poof and revert all changes, just run the 'poof' again.
+```
+poof
 ```
